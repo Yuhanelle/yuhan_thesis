@@ -1,0 +1,66 @@
+<launch>
+  <arg name="ns" default="jackal0"/>
+  <arg name="global_frame" default="$(arg ns)/map"/>
+  <arg name="local_frame"  default="$(arg ns)/odom"/>
+
+  <!-- <node pkg="move_base" type="move_base" respawn="false" name="move_base" output="screen">
+      <rosparam file="$(find jackal_navigation)/params/costmap_common_params.yaml" command="load" ns="global_costmap" />
+      <rosparam file="$(find jackal_navigation)/params/costmap_common_params.yaml" command="load" ns="local_costmap" />
+      <rosparam file="$(find jackal_navigation)/params/odom_nav_params/global_costmap_params.yaml" command="load" />
+      <rosparam file="$(find jackal_navigation)/params/odom_nav_params/local_costmap_params.yaml"  command="load" />
+      <rosparam file="$(find jackal_navigation)/params/base_local_planner_params.yaml" command="load" />
+      <rosparam file="$(find jackal_navigation)/params/move_base_params.yaml" command="load" />
+      <param name="base_global_planner" type="string" value="global_planner/GlobalPlanner" /> value="navfn/NavfnROS" />
+      <param name="base_local_planner"                value="base_local_planner/TrajectoryPlannerROS"/>
+      <param name="global_costmap/global_frame"       value="$(arg global_frame)"/>
+      <param name="global_costmap/robot_base_frame"   value="$(arg ns)/base_link"/>
+      <param name="local_costmap/global_frame"        value="$(arg local_frame)"/>
+      <param name="local_costmap/robot_base_frame"    value="$(arg ns)/base_link"/>
+      <rosparam param="global_costmap/obstacles_layer/scan" subst_value="true">
+        {sensor_frame: $(arg ns)/velodyne,
+         data_type: LaserScan,
+         topic: front/scan,
+         marking: true,
+         clearing: true,
+         min_obstacle_height: -2.0,
+         max_obstacle_height: 2.0,
+         obstacle_range: 5,
+         raytrace_range: 10}
+      </rosparam>
+      <rosparam param="local_costmap/obstacles_layer/scan" subst_value="true">
+        {sensor_frame: $(arg ns)/velodyne,
+         data_type: LaserScan,
+         topic: front/scan,
+         marking: true,
+         clearing: true,
+         min_obstacle_height: -2.0,
+         max_obstacle_height: 2.0,
+         obstacle_range: 5,
+         raytrace_range: 10.0}
+      </rosparam>
+      <remap from="odom"    to="/$(arg ns)/odometry/local_filtered" />
+      <remap from="cmd_vel" to="/$(arg ns)/cmd_vel"/>
+      <remap from="map" to="/$(arg ns)/map"/>
+    </node> -->
+
+  <node pkg="move_base" type="move_base" respawn="false" name="move_base_node" output="screen">
+    <param name="base_local_planner" value="dwa_local_planner/DWAPlannerROS" />
+    <rosparam file="$(find jackal_navigation_rtab)/params/ns_params/costmap_common_params.yaml" command="load" ns="global_costmap"/>
+    <rosparam file="$(find jackal_navigation_rtab)/params/ns_params/costmap_common_params.yaml" command="load" ns="local_costmap" />
+    <rosparam file="$(find jackal_navigation_rtab)/params/ns_params/local_costmap_params_$(arg ns).yaml"  command="load"/>
+    <rosparam file="$(find jackal_navigation_rtab)/params/ns_params/global_costmap_params_$(arg ns).yaml" command="load"/>
+
+    <!-- <param name="base_local_planner" value="teb_local_planner/TebLocalPlannerROS"/> -->
+    <rosparam file="$(find jackal_navigation_rtab)/params/ns_params/base_local_planner_teb_$(arg ns).yaml" command="load" />
+    <rosparam file="$(find jackal_navigation_rtab)/params/ns_params/base_global_planner.yaml" command="load" />
+    <rosparam file="$(find jackal_navigation_rtab)/params/move_base_params.yaml" command="load" />
+
+    <remap from="robot_base_frame" to="$(arg ns)/base_link"/>
+
+    <remap from="odom"    to="/$(arg ns)/odometry/local_filtered" />
+    <remap from="cmd_vel" to="/$(arg ns)/cmd_vel"/>
+    <remap from="/map" to="$(arg ns)/map"/>
+
+  </node>
+
+</launch>

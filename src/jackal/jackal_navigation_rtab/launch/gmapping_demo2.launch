@@ -1,0 +1,23 @@
+<launch>
+
+  <arg name="scan_topic" default="$(eval optenv('JACKAL_LASER_TOPIC', 'front/scan'))" />
+  <arg name="ns" default="jackal0"/>
+  <!-- <arg name="set_base_frame" default="/$(arg ns)/base_link"/>
+  <arg name="set_odom_frame" default="/$(arg ns)/odom"/>
+  <arg name="set_map_frame"  default="/$(arg ns)/map"/> -->
+
+
+  <!--- Run gmapping -->
+  <include file="$(find jackal_navigation_rtab)/launch/include/gmapping2.launch">
+    <arg name="scan_topic"     value="$(arg scan_topic)" />
+    <arg name="ns"             value="$(arg ns)"/>
+  </include>
+
+  <!--- Run Move Base -->
+  <include file="$(find jackal_navigation_rtab)/launch/include/move_base_new.launch" >
+    <arg name="ns"             value="$(arg ns)"/>
+  </include>
+  
+  <!-- <node pkg="tf" type="static_transform_publisher" name="map_to_odom_$(arg ns)" ns="$(arg ns)" args="0.0 0.0 0.0 0 0 0.0 $(arg ns)/map $(arg ns)/odom 1000"/> -->
+
+</launch>

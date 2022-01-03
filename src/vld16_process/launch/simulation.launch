@@ -1,0 +1,18 @@
+<launch>
+
+    <!-- Launch Gazebo with the maze -->
+    <include file="$(find winter_project)/launch/include/jackal_world.launch" />
+    <!-- Launch rviz -->
+    <include file="$(find winter_project)/launch/include/view_robot.launch" />
+
+    <!-- Launch Twist Mux for controlling -->
+    <include file="$(find winter_project)/launch/include/twist_mux.launch" />
+
+    <!-- Launch Point Cloud tools to filter the original Velodyne data and feed into gmapping -->
+    <include file="$(find winter_project)/launch/include/pointcloud_filter.launch" />
+
+    <!-- Launch gmapping and move_base for SLAM and navigation -->
+    <include file="$(find winter_project)/launch/include/gmapping.launch" />
+    <include file="$(find winter_project)/launch/include/move_base.launch" />
+
+</launch>

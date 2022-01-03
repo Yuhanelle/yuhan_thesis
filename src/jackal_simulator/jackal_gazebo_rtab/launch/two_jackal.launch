@@ -1,0 +1,150 @@
+<launch>
+  <arg name="use_sim_time" default="true" />
+  <arg name="gui" default="true" />
+  <arg name="headless" default="false" />
+  <arg name="world_name" default="$(find jackal_gazebo_rtab)/worlds/jackal_30x30.world" />
+
+  <!-- Short-term hack to support the original front_laser:=true argument for spawning
+       the simulator. This will be removed in favour of using the config:=x arg instead. -->
+  <arg name="front_laser" default="false" />
+  <arg name="default_config" value="front_laser" if="$(arg front_laser)" />
+  <arg name="default_config" value="base" unless="$(arg front_laser)" />
+  <!-- end of hack -->
+
+  <!-- Configuration of Jackals which you would like to simulate.
+       See jackal_description for details. -->
+  <arg name="ns1"        default="jackal1"/>
+  <arg name="ns2"        default="jackal2"/>
+  <arg name="ns3"        default="jackal3"/>
+  <arg name="config1"    default="base"/>
+  <arg name="config1_id" default="1"/>
+  <arg name="config2"    default="base"/>
+  <arg name="config2_id" default="2"/>
+  <arg name="config3"    default="base"/>
+  <arg name="config3_id" default="3"/>
+
+  <arg name="j1_x_pos" default="5"/>
+  <arg name="j1_y_pos" default="0"/>
+  <arg name="j1_z_pos" default="0"/>
+  <arg name="j1_yaw"   default="0"/>
+  <arg name="j2_x_pos" default="0"/>
+  <arg name="j2_y_pos" default="8"/>
+  <arg name="j2_z_pos" default="0"/>
+  <arg name="j2_yaw"   default="-1.57"/>
+
+  <!-- Optionally enable teleop for the simulation -->
+  <!-- <arg name="joystick" default="true" /> -->
+
+  <!-- Launch Gazebo with the specified world -->
+  <include file="$(find gazebo_ros)/launch/empty_world.launch">
+    <arg name="debug" value="0" />
+    <arg name="gui" value="$(arg gui)" />
+    <arg name="use_sim_time" value="$(arg use_sim_time)" />
+    <arg name="headless" value="$(arg headless)" />
+    <arg name="world_name" value="$(arg world_name)" />
+  </include>
+
+  <!-- Spawn Jackal 1 -->
+  <include file="$(find jackal_gazebo_rtab)/launch/spawn_multi_jackal.launch">
+    <arg name="ns"  value="$(arg ns1)"/>
+    <arg name="x" value="$(arg j1_x_pos)" />
+    <arg name="y" value="$(arg j1_y_pos)" />
+    <arg name="z" value="$(arg j1_z_pos)" />
+    <arg name="yaw" value="$(arg j1_yaw)" />
+    <arg name="config" value="$(arg config1)" />
+  </include>
+
+  
+
+
+  <!-- Spawn Jackal 2 -->
+  <include file="$(find jackal_gazebo_rtab)/launch/spawn_multi_jackal.launch">
+    <arg name="ns"  value="$(arg ns2)"/>
+    <arg name="x" value="$(arg j2_x_pos)" />
+    <arg name="y" value="$(arg j2_y_pos)" />
+    <arg name="z" value="$(arg j2_z_pos)" />
+    <arg name="yaw" value="$(arg j2_yaw)" />
+    <arg name="config" value="$(arg config2)" />
+  </include>
+
+
+   <!-- Process velodyne output to laser scan -->
+   <node pkg="pointcloud_to_laserscan" type="pointcloud_to_laserscan_node" name="pointcloud_to_laserscan" ns="$(arg ns1)">
+        <remap from="cloud_in" to="/jackal1/velodyne_points"/>
+        <remap from="scan" to="/jackal1/front/scan"/>
+        <rosparam>
+            transform_tolerance: 0.01
+            min_height: -1.0
+            max_height: 1.0
+
+            angle_min: -3.1416
+            angle_max: 3.1416
+            angle_increment: 0.0087
+            scan_time: 0.1
+            range_min: 0.1
+            range_max: 20.0
+            use_inf: true
+            concurrency_level: 0
+        </rosparam>
+  </node>
+
+  <node pkg="pointcloud_to_laserscan" type="pointcloud_to_laserscan_node" name="pointcloud_to_laserscan" ns="$(arg ns2)">
+        <remap from="cloud_in" to="/jackal2/velodyne_points"/>
+        <remap from="scan" to="/jackal2/front/scan"/>
+        <rosparam>
+            transform_tolerance: 0.01
+            min_height: -1.0
+            max_height: 1.0
+
+            angle_min: -3.1416
+            angle_max: 3.1416
+            angle_increment: 0.0087
+            scan_time: 0.1
+            range_min: 0.1
+            range_max: 20.0
+            use_inf: true
+            concurrency_level: 0
+        </rosparam>
+  </node>
+
+  <group ns="$(arg ns1)">
+    <include file="$(find jackal_navigation_rtab)/launch/gmapping_demo2.launch">
+      <arg name="ns"    value="$(arg ns1)"/>
+    </include>
+  </group>
+
+  <!-- <node pkg="tf" type="static_transform_publisher" name="map_to_$(arg ns1)_map" ns="$(arg ns1)" args="0.0 0.0 0.0 0 0 0.0 map $(arg ns1)/map 1000"/> -->
+
+  <group ns="$(arg ns2)">
+    <include file="$(find jackal_navigation_rtab)/launch/gmapping_demo2.launch">
+      <arg name="ns"    value="$(arg ns2)"/>
+    </include>
+  </group>
+
+  <include file="$(find jackal_navigation_rtab)/launch/include/multi_jackal_mapmerge.launch">
+    <arg name="move_forward_only" value="false"/>
+    <arg name="j1" value="$(arg ns1)"/>
+    <arg name="j2" value="$(arg ns2)"/>
+    <arg name="j1_x_pos" value="$(arg j1_x_pos)"/>
+    <arg name="j1_y_pos" value="$(arg j1_y_pos)"/>
+    <arg name="j1_z_pos" value="$(arg j1_z_pos)"/>
+    <arg name="j1_yaw"   value="$(arg j1_yaw)"/>
+    <arg name="j2_x_pos" value="$(arg j2_x_pos)"/>
+    <arg name="j2_y_pos" value="$(arg j2_y_pos)"/>
+    <arg name="j2_z_pos" value="$(arg j2_z_pos)"/>
+    <arg name="j2_yaw"   value="$(arg j2_yaw)"/>
+  </include>
+
+
+
+
+<!--******************************-->
+<!-- Debugging tools -->
+<!--******************************-->
+
+<node name="rviz" pkg="rviz" type="rviz" args="-d $(find jackal_viz_rtab)/rviz/two_jackal_map.rviz"/>
+<!-- <node name="rqt_topic" pkg="rqt_topic" type="rqt_topic" output="screen" /> -->
+<node name="rqt_graph" pkg="rqt_graph" type="rqt_graph" output="screen" />
+<node name="rqt_tf_tree" pkg="rqt_tf_tree" type="rqt_tf_tree" output="screen" />
+
+</launch>

@@ -1,0 +1,28 @@
+odom_frame: jackal2/odom
+base_link_frame: jackal2/base_link
+world_frame: jackal2/odom
+map_frame: map
+
+
+frequency: 50
+transform_time_offset: 0.1
+odom0: jackal_velocity_controller/odom
+odom0_differential: false
+odom0_config: [false, false, false,
+               false, false, false,
+               true,  true,  true,
+               false, false, true,
+               false, false, false]
+odom0_queue_size: 10
+
+imu0: jackal2/imu/data
+imu0_differential: false
+imu0_config: [false, false, false,
+              true,  true,  true,
+              false, false, false,
+              true,  true,  true,
+              false, false, false]
+
+predict_to_current_time: true
+imu0_queue_size: 10
+imu0_remove_gravitational_acceleration: true
