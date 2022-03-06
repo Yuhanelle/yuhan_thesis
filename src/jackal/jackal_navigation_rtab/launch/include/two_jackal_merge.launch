@@ -1,0 +1,47 @@
+<launch>
+  <arg name="ns1"        default="jackal1"/>
+  <arg name="ns2"        default="jackal2"/>
+  <arg name="j1_x_pos" default="14"/>
+  <arg name="j1_y_pos" default="14"/>
+  <arg name="j1_z_pos" default="0"/>
+  <arg name="j1_yaw"   default="3.14"/>
+  <arg name="j2_x_pos" default="-14"/>
+  <arg name="j2_y_pos" default="-14"/>
+  <arg name="j2_z_pos" default="0"/>
+  <arg name="j2_yaw"   default="0"/>
+
+  <group ns="/$(arg ns1)_$(arg ns2)/$(arg ns1)/map_merge">
+    <param name="init_pose_x" value="$(arg j1_x_pos)"/>
+    <param name="init_pose_y" value="$(arg j1_y_pos)"/>
+    <param name="init_pose_z" value="$(arg j1_z_pos)"/>
+    <param name="init_pose_yaw" value="0.0"/>
+  </group>
+
+  <group ns="/$(arg ns1)_$(arg ns2)/$(arg ns2)/map_merge">
+    <param name="init_pose_x" value="$(arg j2_x_pos)"/>
+    <param name="init_pose_y" value="$(arg j2_y_pos)"/>
+    <param name="init_pose_z" value="$(arg j2_z_pos)"/>
+    <param name="init_pose_yaw" value="0.0"/>
+  </group>
+  
+  <node name="$(arg ns1)_map_observer" pkg="topic_tools" type="relay" output="screen" ns="$(arg ns1)_$(arg ns2)" 
+        args="/$(arg ns1)/map /$(arg ns1)_$(arg ns2)/$(arg ns1)/$(arg ns1)_$(arg ns2)_map"/>
+  <node name="$(arg ns2)_map_observer" pkg="topic_tools" type="relay" output="screen" ns="$(arg ns1)_$(arg ns2)" 
+        args="/$(arg ns2)/map /$(arg ns1)_$(arg ns2)/$(arg ns2)/$(arg ns1)_$(arg ns2)_map"/>
+  
+  
+  <node pkg="multirobot_map_merge" type="map_merge" respawn="false" name="map_merge" output="screen" ns="$(arg ns1)_$(arg ns2)">
+    <param name="robot_map_topic" value="$(arg ns1)_$(arg ns2)_map"/>
+    <param name="robot_namespace" value=""/>
+    <param name="merged_map_topic" value="merge_map"/>
+    <param name="world_frame" value="map"/>
+    <param name="known_init_poses" value="true"/>/>
+    <param name="merging_rate" value="5.0"/>
+    <param name="discovery_rate" value="0.1"/>
+    <param name="estimation_rate" value="1.0"/>
+    <param name="estimation_confidence" value="1.0"/>
+  </node>
+  <node pkg="tf" type="static_transform_publisher" name="world_to_$(arg ns1)_$(arg ns2)_tf_broadcaster"  args="0 0 0 0 0 0 /map /$(arg ns1)_$(arg ns2)/merge_map 100"/>
+
+
+</launch>

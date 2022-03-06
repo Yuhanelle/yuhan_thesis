@@ -1,0 +1,18 @@
+<launch>
+    <arg name="ns" default="jackal0"/>
+    <node name="jackal_waypoint_publisher" pkg="rnn_sim" type="jackal_waypoint_publisher.py" args="$(find rnn_sim)/test_run/way_points.txt" output="screen" />
+    <!-- <node name="jacakl1_map_update" pkg="rnn_sim" type="jackal_map_saver.py" output="screen" >
+        <param name="frame_id"  value="$(arg ns)/map"/>
+        <param name="map_ns" value="$(arg ns)" />
+        <remap from="/my_map" to="/$(arg ns)/map" />
+    </node> -->
+    <node name="j1_j2_map_exchange" pkg="rnn_sim" type="map_exchange.py" output="screen" >
+        <param name="ns1"  value="jackal1"/>
+        <param name="ns2" value="jackal2" />
+        <param name="j1_x"  value="14"/>
+        <param name="j1_y" value="14" />
+        <param name="j2_x"  value="-14"/>
+        <param name="j2_y" value="-14" />
+        <param name="map_ns" value=""/>
+    </node>
+</launch>

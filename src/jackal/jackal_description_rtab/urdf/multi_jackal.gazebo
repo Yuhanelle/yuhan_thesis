@@ -8,9 +8,9 @@
 
   <gazebo>
     <plugin name="imu_controller" filename="libhector_gazebo_ros_imu.so">
-      <robotNamespace>/$(arg namespace)</robotNamespace>
+      <robotNamespace>$(arg namespace)</robotNamespace>
       <updateRate>50.0</updateRate>
-      <frameId>$(arg tfpre)/base_link</frameId>
+      <frameId>$(arg namespace)/base_link</frameId>
       <bodyName>imu_link</bodyName>
       <topicName>imu/data</topicName>
       <accelDrift>0.005 0.005 0.005</accelDrift>
@@ -25,9 +25,9 @@
   <gazebo>
     <plugin name="gps_controller" filename="libhector_gazebo_ros_gps.so">
       <updateRate>40</updateRate>
-      <robotNamespace>/$(arg namespace)</robotNamespace>
+      <robotNamespace>$(arg namespace)</robotNamespace>
       <bodyName>navsat_link</bodyName>
-      <frameId>$(arg tfpre)/base_link</frameId>
+      <frameId>$(arg namespace)/base_link</frameId>
       <topicName>navsat/fix</topicName>
       <velocityTopicName>navsat/vel</velocityTopicName>
       <referenceLatitude>49.9</referenceLatitude>
@@ -63,17 +63,16 @@
     <turnGravityOff>false</turnGravityOff>
   </gazebo>
 
-  <!-- zed camera -->
-  <gazebo reference="camera_link">
-    <sensor type="multicamera" name="zed_stereo_camera">
+  <!-- stereo camera -->
+  <gazebo reference="left_camera_frame">
+    <sensor type="multicamera" name="stereo_camera">
       <update_rate>30.0</update_rate>
-      <!-- math.atan(320 / 687.8065795898438) * 2 -->
-      <camera name="zed_camera_left_camera">
-        <horizontal_fov>0.8709216071359963</horizontal_fov>
+      <camera name="left">
+        <horizontal_fov>1.3962634</horizontal_fov>
         <image>
-          <width>640</width>
-          <height>480</height>
-          <format>B8G8R8</format>
+          <width>800</width>
+          <height>800</height>
+          <format>R8G8B8</format>
         </image>
         <clip>
           <near>0.02</near>
@@ -85,12 +84,13 @@
           <stddev>0.007</stddev>
         </noise>
       </camera>
-       <camera name="zed_camera_right_camera">
-        <horizontal_fov>0.8709216071359963</horizontal_fov>
+      <camera name="right">
+        <pose>0 -0.07 0 0 0 0</pose>
+        <horizontal_fov>1.3962634</horizontal_fov>
         <image>
-          <width>640</width>
-          <height>480</height>
-          <format>B8G8R8</format>
+          <width>800</width>
+          <height>800</height>
+          <format>R8G8B8</format>
         </image>
         <clip>
           <near>0.02</near>
@@ -104,12 +104,13 @@
       </camera>
       <plugin name="stereo_camera_controller" filename="libgazebo_ros_multicamera.so">
         <alwaysOn>true</alwaysOn>
-        <updateRate>30.0</updateRate>
+        <updateRate>60.0</updateRate>
         <cameraName>multisense_sl/camera</cameraName>
         <imageTopicName>image_raw</imageTopicName>
         <cameraInfoTopicName>camera_info</cameraInfoTopicName>
-        <frameName>camera_link</frameName>
-        <hackBaseline>0</hackBaseline><!-- set this to 0.12 for the second camera -->
+        <frameName>left_camera_optical_frame</frameName>
+        <!--<rightFrameName>right_camera_optical_frame</rightFrameName>-->
+        <hackBaseline>0.07</hackBaseline>
         <distortionK1>0.0</distortionK1>
         <distortionK2>0.0</distortionK2>
         <distortionK3>0.0</distortionK3>

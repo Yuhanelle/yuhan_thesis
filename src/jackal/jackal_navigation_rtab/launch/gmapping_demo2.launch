@@ -18,6 +18,6 @@
     <arg name="ns"             value="$(arg ns)"/>
   </include>
   
-  <!-- <node pkg="tf" type="static_transform_publisher" name="map_to_odom_$(arg ns)" ns="$(arg ns)" args="0.0 0.0 0.0 0 0 0.0 $(arg ns)/map $(arg ns)/odom 1000"/> -->
+  <!-- <node pkg="tf" type="static_transform_publisher" name="map_to_odom_$(arg ns)" args="0.0 0.0 0.0 0 0 0.0 $(arg ns)/map $(arg ns)/odom 1000"/> -->
 
 </launch>

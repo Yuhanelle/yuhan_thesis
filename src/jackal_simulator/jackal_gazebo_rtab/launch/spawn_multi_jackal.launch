@@ -10,6 +10,7 @@
     <arg name="yaw" default="0.0"/>
     <arg name="config" default="base" />
     <arg name="kinect_enabled" default="false"/>
+    <arg name="map_file" default="$(find jackal_navigation_rtab)/maps/$(arg ns)_base_map.yaml"/>
     <!-- <arg name="joystick" default="true" /> -->
 
     <include file="$(find jackal_description_rtab)/launch/description_new.launch">
@@ -20,6 +21,13 @@
     <include file="$(find jackal_control_rtab)/launch/control_new.launch" >
         <arg name="ns" value="$(arg ns)" />
     </include>
+
+    <!-- import an empty map for merged map update -->
+    <node pkg="map_server" name="base_map_server" type="map_server" args="$(arg map_file)" ns="$(arg ns)">
+        <param name="frame_id" value="$(arg ns)/base_map"/>
+        <remap from="map" to="/$(arg ns)/map/$(arg ns)_proj_map"/>
+        <remap from="map_metadata" to="/$(arg ns)/base_map_metadata"/>
+    </node>
 
     <!-- Spawn Jackal -->
     <node name="urdf_spawner" pkg="gazebo_ros" type="spawn_model" ns="$(arg ns)"

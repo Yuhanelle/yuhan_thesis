@@ -1,0 +1,3 @@
+<launch>
+    <node name="map_saver" pkg="map_server" type="map_saver" args="-f $(find jackal_navigation_rtab)/maps/jackal5_new_map"/>
+</launch>

@@ -4413,6 +4413,7 @@
         </link>
       </model>
       <model name='unit_box'>
+        <static>true</static>
         <pose frame=''>11.4108 -0.55552 0.5 -0 -0 -0.007681</pose>
         <scale>1 1 1</scale>
         <link name='link'>
@@ -4423,6 +4424,7 @@
         </link>
       </model>
       <model name='unit_box_0'>
+        <static>true</static>
         <pose frame=''>11.4395 -1.55863 0.5 -0 -0 -0.001548</pose>
         <scale>1 1 1</scale>
         <link name='link'>
@@ -4433,6 +4435,7 @@
         </link>
       </model>
       <model name='unit_box_1'>
+        <static>true</static>
         <pose frame=''>10.4394 -1.55148 0.5 0 0 -0.0013</pose>
         <scale>1 1 1</scale>
         <link name='link'>
@@ -4443,6 +4446,7 @@
         </link>
       </model>
       <model name='unit_box_2'>
+        <static>true</static>
         <pose frame=''>9.43599 -1.55134 0.499995 0 1e-05 0</pose>
         <scale>1 1 1</scale>
         <link name='link'>
@@ -4453,6 +4457,7 @@
         </link>
       </model>
       <model name='unit_box_3'>
+        <static>true</static>
         <pose frame=''>3.4719 -10.4915 0.499995 1e-05 -0 -0.000559</pose>
         <scale>1 1 1</scale>
         <link name='link'>
@@ -4463,6 +4468,7 @@
         </link>
       </model>
       <model name='unit_box_4'>
+        <static>true</static>
         <pose frame=''>2.47191 -10.4857 0.499995 -1e-05 -0 -0.000559</pose>
         <scale>1 1 1</scale>
         <link name='link'>
@@ -4473,6 +4479,7 @@
         </link>
       </model>
       <model name='unit_box_5'>
+        <static>true</static>
         <pose frame=''>-7.48724 -0.514279 0.499995 -0 1e-05 -0.008172</pose>
         <scale>1 1 1</scale>
         <link name='link'>
@@ -4483,6 +4490,7 @@
         </link>
       </model>
       <model name='unit_box_6'>
+        <static>true</static>
         <pose frame=''>-7.43778 -1.51758 0.499995 0 -1e-05 -0.001751</pose>
         <scale>1 1 1</scale>
         <link name='link'>
@@ -4493,6 +4501,7 @@
         </link>
       </model>
       <model name='unit_box_7'>
+        <static>true</static>
         <pose frame=''>-8.43784 -1.51021 0.499995 0 -1e-05 -0.001613</pose>
         <scale>1 1 1</scale>
         <link name='link'>
@@ -4503,6 +4512,7 @@
         </link>
       </model>
       <model name='unit_cylinder'>
+        <static>true</static>
         <pose frame=''>3.50735 -9.49154 0.499991 0 -0 0.000464</pose>
         <scale>1 1 1</scale>
         <link name='link'>
@@ -4513,6 +4523,7 @@
         </link>
       </model>
       <model name='unit_cylinder_0'>
+        <static>true</static>
         <pose frame=''>-11.5205 -3.52747 0.499993 -3e-06 2e-06 0</pose>
         <scale>1 1 1</scale>
         <link name='link'>

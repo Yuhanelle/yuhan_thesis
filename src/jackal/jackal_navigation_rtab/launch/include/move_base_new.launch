@@ -43,6 +43,12 @@
       <remap from="map" to="/$(arg ns)/map"/>
     </node> -->
 
+  <group ns="base_controller">
+      <param name="odom_frame_id" type="string" value="$(arg ns)/stereo_odometry"/>
+      <param name="base_frame_id" type="string" value="$(arg ns)/base_link"/>
+  </group>
+  <remap from="/base_controller/odom" to="$(arg ns)/jackal_velocity_controller/odom"/>
+
   <node pkg="move_base" type="move_base" respawn="false" name="move_base_node" output="screen">
     <param name="base_local_planner" value="dwa_local_planner/DWAPlannerROS" />
     <rosparam file="$(find jackal_navigation_rtab)/params/ns_params/costmap_common_params.yaml" command="load" ns="global_costmap"/>
@@ -57,10 +63,12 @@
 
     <remap from="robot_base_frame" to="$(arg ns)/base_link"/>
 
-    <remap from="odom"    to="/$(arg ns)/odometry/local_filtered" />
+    <!-- <remap from="odom"    to="/$(arg ns)/odometry/local_filtered" /> -->
+    <remap from="odom"    to="/$(arg ns)/new_odometry" />
     <remap from="cmd_vel" to="/$(arg ns)/cmd_vel"/>
     <remap from="/map" to="$(arg ns)/map"/>
 
   </node>
+
 
 </launch>

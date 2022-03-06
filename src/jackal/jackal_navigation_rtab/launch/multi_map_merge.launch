@@ -51,7 +51,7 @@
     <param name="estimation_confidence" value="1.0"/>
   </node>
 
-  <node pkg="tf" type="static_transform_publisher" name="world_to_$(arg ns1)_tf_broadcaster"  args="0 0 0 0 0 0 /map /$(arg ns1)/map 100"/>
-  <node pkg="tf" type="static_transform_publisher" name="world_to_$(arg ns2)_tf_broadcaster" args="0 0 0 0 0 0 /map /$(arg ns2)/map 100"/>
+  <node pkg="tf" type="static_transform_publisher" name="world_to_$(arg ns1)_tf_broadcaster"  args="0 0.2 0 0 0 0 /map /$(arg ns1)/map 100"/>
+  <node pkg="tf" type="static_transform_publisher" name="world_to_$(arg ns2)_tf_broadcaster" args="0.2 -0.2 0 0 0 0 /map /$(arg ns2)/map 100"/>
   <!-- <node pkg="tf" type="static_transform_publisher" name="world_to_$(arg third_tb3)_tf_broadcaster" args="0 0 0 0 0 0 /map /$(arg third_tb3)/map 100"/> -->
 </launch>

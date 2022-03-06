@@ -8,6 +8,8 @@
     <param name="base_frame" value="base_link"/>
     <param name="map_frame" value="map"/>
 
+    <param name="transform_publish_period" value="0"/>
+
     <!-- Process 1 out of every this many scans (set it to a higher number to skip more scans)  -->
     <param name="throttle_scans" value="1"/>
 
