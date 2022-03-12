@@ -1,0 +1,11 @@
+<launch>
+  <arg name="j1"        default="jackal1"/>
+  <arg name="j2"        default="jackal2"/>
+  <node name="map_merge_test" pkg="rnn_sim" type="map_merge.py" output="screen" > 
+    <param name="map_topic1" value="$(arg j1)/jackal1_proj_map"/>
+    <param name="map_topic2" value="$(arg j2)/$(arg j2)_proj_map"/>
+    <param name="merge_map_topic" value = "/t_map"/>
+  </node>
+
+  <node pkg="tf" type="static_transform_publisher" name="world_to_test_map_tf_broadcaster" args="0 0 0 0 0 0 /map /t_map 100"/>
+</launch>

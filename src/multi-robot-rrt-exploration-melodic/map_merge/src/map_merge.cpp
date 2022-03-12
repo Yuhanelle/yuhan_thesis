@@ -162,6 +162,8 @@ void MapMerge::mapMerging()
     // we don't need to lock here, because when have_initial_poses_ is true we
     // will not run concurrently on the pipeline
     pipeline_.feed(grids.begin(), grids.end());
+    ROS_DEBUG(grids.begin());
+    ROS_DEBUG(grids.end())
     pipeline_.setTransforms(transforms.begin(), transforms.end());
   }
 
@@ -259,6 +261,10 @@ void MapMerge::partialMapUpdate(
 
   size_t grid_xn = map->info.width;
   size_t grid_yn = map->info.height;
+  ROS_WARN("check th size of grid map, "
+             "only part will be copied. received: [%lu, %lu], [%lu, %lu] "
+             "map is: [0, %lu], [0, %lu]",
+             x0, xn, y0, yn, grid_xn, grid_yn);
 
   if (xn > grid_xn || x0 > grid_xn || yn > grid_yn || y0 > grid_yn) {
     ROS_WARN("received update doesn't fully fit into existing map, "
