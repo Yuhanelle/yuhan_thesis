@@ -68,6 +68,9 @@
     <remap from="/map" to="/$(arg ns)/$(arg ns)_proj_map"/>
     <param name="TrajectoryPlannerROS/xy_goal_tolerance" value="0.5"/>
 
+    <param name="recovery_behavior_enabled" value="false"/>
+    <param name="clearing_rotation_allowed" value="false"/>
+	  
   </node>
   
   <param name="cmd_vel/abtr_priority" value="10"/>
