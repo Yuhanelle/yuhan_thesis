@@ -28,13 +28,17 @@
   <!-- publish ground truth odometry from gazebo -->
   <!-- <param name="/$(arg ns)/ground_frame_id"  value="$(arg ns)/odom"/>
   <param name="/$(arg ns)/model_name" value="$(arg ns)" /> -->
-  <node name="ground_truth_odom" pkg="rnn_sim" type="odom.py" ns="$(arg ns)" output="screen" >
+  <!--   <node name="ground_truth_odom" pkg="rnn_sim" type="odom.py" ns="$(arg ns)" output="screen" >
     <param name="ground_frame_id"  value="$(arg ns)/odom"/>
     <param name="model_name" value="$(arg ns)" />
     <remap from="/my_odom" to="/$(arg ns)/ground_odom" />
+  </node> -->
+  <node name="change_frame_id" type="change_frame_id.py" pkg="rnn_sim" ns="$(arg ns)" output="screen">
+    <param name="ground_frame_id"  value="$(arg ns)/odom"/>
+    <param name="child_frame_id"  value="$(arg ns)/base_link"/>
+    <param name="from_odom_topic" value="/$(arg ns)/ground_truth/state" />
+    <param name="to_odom_topic" value="/$(arg ns)/ground_odom" />
   </node>
-
-  
 
   <node pkg="twist_mux" type="twist_mux" name="twist_mux" ns="$(arg ns)" >
     <rosparam command="load" file="$(find jackal_control_rtab)/config/twist_mux.yaml" />
