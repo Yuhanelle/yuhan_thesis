@@ -1,0 +1,78 @@
+<launch>
+  <arg name="j1"        default="jackal1"/>
+  <arg name="j2"        default="jackal2"/>
+  <arg name="j3"        default="jackal3"/>
+  <arg name="j4"        default="jackal4"/>
+  <arg name="j5"        default="jackal5"/>
+  <!-- <arg name="j6"        default="jackal6"/> -->
+
+  <arg name="j1_x_pos" default="-14.5"/>
+  <arg name="j1_y_pos" default="14.5"/>
+  <arg name="j1_z_pos" default="0"/>
+  <arg name="j1_yaw"   default="4.71"/>
+  <arg name="j2_x_pos" default="-13.5"/>
+  <arg name="j2_y_pos" default="14.5"/>
+  <arg name="j2_z_pos" default="0"/>
+  <arg name="j2_yaw"   default="4.71"/>
+  <arg name="j3_x_pos" default="-14.5"/>
+  <arg name="j3_y_pos" default="13.5"/>
+  <arg name="j3_z_pos" default="0"/>
+  <arg name="j3_yaw"   default="4.71"/>
+  <arg name="j4_x_pos" default="-13.5"/>
+  <arg name="j4_y_pos" default="13.5"/>
+  <arg name="j4_z_pos" default="0"/>
+  <arg name="j4_yaw"   default="4.71"/>
+
+  <!-- Run Rtap_map for all robots-->
+  <group ns="$(arg j1)">
+    <include file="$(find jackal_navigation_rtab)/launch/include/rtab_new.launch">
+      <arg name="ns"    value="$(arg j1)"/>
+    </include>
+    <include file="$(find jackal_navigation_rtab)/launch/include/move_base_rtab.launch" >
+        <arg name="ns"             value="$(arg j1)"/>
+    </include>
+  </group>
+
+  <group ns="$(arg j2)">
+    <include file="$(find jackal_navigation_rtab)/launch/include/rtab_new.launch">
+      <arg name="ns"    value="$(arg j2)"/>
+    </include>
+    <include file="$(find jackal_navigation_rtab)/launch/include/move_base_rtab.launch" >
+        <arg name="ns"             value="$(arg j2)"/>
+    </include>
+  </group>
+
+   <group ns="$(arg j3)">
+    <include file="$(find jackal_navigation_rtab)/launch/include/rtab_new.launch">
+      <arg name="ns"    value="$(arg j3)"/>
+    </include>
+    <include file="$(find jackal_navigation_rtab)/launch/include/move_base_rtab.launch" >
+        <arg name="ns"             value="$(arg j3)"/>
+    </include>
+  </group>
+
+  <group ns="$(arg j4)">
+    <include file="$(find jackal_navigation_rtab)/launch/include/rtab_new.launch">
+      <arg name="ns"    value="$(arg j4)"/>
+    </include>
+    <include file="$(find jackal_navigation_rtab)/launch/include/move_base_rtab.launch" >
+        <arg name="ns"             value="$(arg j4)"/>
+    </include>
+  </group>
+
+
+
+  <node pkg="rnn_sim" type="map_merge_new.py" respawn="false" name="map_merge" output="screen">
+    <param name="map_topics" value="map"/>
+    <param name="num_robot" value="4"/>
+    <param name="merge_map_topic" value = "/map"/>
+  </node>
+
+  <node pkg="tf" type="static_transform_publisher" name="world_to_$(arg j1)_tf_broadcaster"  args="0 0 0 0 0 0 /map /$(arg j1)/proj_map 100"/>
+  <node pkg="tf" type="static_transform_publisher" name="world_to_$(arg j2)_tf_broadcaster" args="0 0 0 0 0 0 /map /$(arg j2)/proj_map 100"/>
+  <node pkg="tf" type="static_transform_publisher" name="world_to_$(arg j3)_tf_broadcaster"  args="0 0 0 0 0 0 /map /$(arg j3)/proj_map 100"/>
+  <node pkg="tf" type="static_transform_publisher" name="world_to_$(arg j4)_tf_broadcaster" args="0 0 0 0 0 0 /map /$(arg j4)/proj_map 100"/>
+  <!-- <node pkg="tf" type="static_transform_publisher" name="world_to_$(arg j5)_tf_broadcaster"  args="0 0 0 0 0 0 /map /$(arg j5)/proj_map 100"/> -->
+  <!-- <node pkg="tf" type="static_transform_publisher" name="world_to_$(arg j6)_tf_broadcaster" args="0 0 0 0 0 0 /map /$(arg j6)/proj_map 100"/> -->
+  <!-- <node pkg="tf" type="static_transform_publisher" name="world_to_map_tf_broadcaster" args="0 0 0 0 0 0 /world /map 100"/> -->
+</launch>

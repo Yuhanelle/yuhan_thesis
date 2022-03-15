@@ -18,7 +18,8 @@
   <arg name="ns2"        default="jackal2"/>
   <arg name="ns3"        default="jackal3"/>
   <arg name="ns4"        default="jackal4"/>
-
+  <arg name="ns5"        default="jackal5"/>
+  <!-- <arg name="ns6"        default="jackal6"/> -->
   <arg name="config1"    default="base"/>    <!-- aaron -->
   <arg name="config1_id" default="1"/>
   <arg name="config2"    default="base"/>
@@ -27,7 +28,10 @@
   <arg name="config3_id" default="3"/>
   <arg name="config4"    default="base"/>
   <arg name="config4_id" default="4"/>
-
+  <arg name="config5"    default="base"/>
+  <arg name="config5_id" default="5"/>
+  <!-- <arg name="config6"    default="base"/>
+  <arg name="config6_id" default="6"/> -->
 
   <arg name="j1_x_pos" default="-14.5"/>
   <arg name="j1_y_pos" default="14.5"/>
@@ -45,6 +49,14 @@
   <arg name="j4_y_pos" default="13.5"/>
   <arg name="j4_z_pos" default="0"/>
   <arg name="j4_yaw"   default="4.71"/>
+  <arg name="j5_x_pos" default="-12.5"/>
+  <arg name="j5_y_pos" default="14.5"/>
+  <arg name="j5_z_pos" default="0"/>
+  <arg name="j5_yaw"   default="4.71"/>
+  <!-- <arg name="j6_x_pos" default="-14.5"/>
+  <arg name="j6_y_pos" default="12.5"/>
+  <arg name="j6_z_pos" default="0"/>
+  <arg name="j6_yaw"   default="4.71"/> -->
 
   <!-- Optionally enable teleop for the simulation -->
   <!-- <arg name="joystick" default="true" /> -->
@@ -100,6 +112,25 @@
     <arg name="config" value="$(arg config4)" />
   </include>
 
+  <!-- Spawn Jackal 5 -->
+  <include file="$(find jackal_gazebo_rtab)/launch/spawn_multi_jackal.launch">
+    <arg name="ns"  value="$(arg ns5)"/>
+    <arg name="x" value="$(arg j5_x_pos)" />
+    <arg name="y" value="$(arg j5_y_pos)" />
+    <arg name="z" value="$(arg j5_z_pos)" />
+    <arg name="yaw" value="$(arg j5_yaw)" />
+    <arg name="config" value="$(arg config5)" />
+  </include>
+
+  <!-- Spawn Jackal 6 -->
+  <!-- <include file="$(find jackal_gazebo_rtab)/launch/spawn_multi_jackal.launch">
+    <arg name="ns"  value="$(arg ns6)"/>
+    <arg name="x" value="$(arg j6_x_pos)" />
+    <arg name="y" value="$(arg j6_y_pos)" />
+    <arg name="z" value="$(arg j6_z_pos)" />
+    <arg name="yaw" value="$(arg j6_yaw)" />
+    <arg name="config" value="$(arg config6)" />
+  </include> -->
 
 
 

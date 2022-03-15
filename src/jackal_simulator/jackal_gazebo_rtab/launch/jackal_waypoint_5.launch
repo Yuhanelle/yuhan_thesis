@@ -1,0 +1,6 @@
+<launch>
+
+    <node name="jackal_waypoint_publisher" pkg="rnn_sim" type="jackal_waypoint_publisher.py" args="$(find rnn_sim)/test_run/wpt_TL_30_5.txt" output="screen" />
+    
+
+</launch>
