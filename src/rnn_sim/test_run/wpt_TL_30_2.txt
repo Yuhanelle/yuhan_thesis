@@ -1,6 +1,6 @@
 Robot name and following lines have coordinates x,y,z roll,pitch,yaw (in radians) and time which is the time the robot holds the position before moving to the next waypoint
 jackal1
--14.5 14.5 0 0 0 4.71 7
+-14.5 14.5 0 0 0 4.71 10
 -13.5 13.5 0 0 0 5.18 0.5
 -12.5 11.5 0 0 0 4.25 0.5
 -13.5 9.5 0 0 0 5.5 0.5
