@@ -12,8 +12,8 @@
   <arg name="j2_y_pos" default="14.5"/>
   <arg name="j2_z_pos" default="0"/>
   <arg name="j2_yaw"   default="4.71"/>
-  <arg name="j3_x_pos" default="-12.5"/>
-  <arg name="j3_y_pos" default="14.5"/>
+  <arg name="j3_x_pos" default="-14.5"/>
+  <arg name="j3_y_pos" default="13.5"/>
   <arg name="j3_z_pos" default="0"/>
   <arg name="j3_yaw"   default="4.71"/>
   <!-- <arg name="j4_x_pos" default="-14"/>

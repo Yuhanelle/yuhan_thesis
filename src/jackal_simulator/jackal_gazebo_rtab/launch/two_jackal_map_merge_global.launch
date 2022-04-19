@@ -175,20 +175,22 @@
   <node pkg="tf" type="static_transform_publisher" name="world_to_j1_j2_tf_broadcaster"  args="0 0 0 0 0 0 /map /j1_j2/map 100"/> -->
 
   <!-- A global map for tracking robot states-->
-  <node pkg="rnn_sim" type="map_merge.py" respawn="false" name="map_merge" output="screen">
+  <!-- <node pkg="rnn_sim" type="map_merge.py" respawn="false" name="map_merge" output="screen">
     <param name="map_topic1" value="/$(arg j1)/map"/>
     <param name="map_topic2" value="/$(arg j2)/map"/>
     <param name="merge_map_topic" value = "/map"/>
-    <!-- <param name="robot_map_topic" value="map"/>
-    <param name="robot_namespace" value=""/>
-    <param name="merged_map_topic" value="map"/>
-    <param name="world_frame" value="map"/>
-    <param name="known_init_poses" value="true"/>
-    <param name="merging_rate" value="5.0"/>
-    <param name="discovery_rate" value="0.1"/>
-    <param name="estimation_rate" value="1.0"/>
-    <param name="estimation_confidence" value="1.0"/> -->
+
+  </node> -->
+  <node pkg="rnn_sim" type="map_merge_new.py" respawn="false" name="map_merge" output="screen">
+    <param name="map_topics" value="map"/>
+    <param name="num_robot" value="2"/>
+    <param name="merge_map_topic" value = "map"/>
   </node>
+  <!-- <node pkg="rnn_sim" type="map_merge.py" respawn="false" name="map_merge" output="screen">
+    <param name="map_topic1" value="/jackal1/map"/>
+    <param name="map_topic2" value="/jackal2/map"/>
+    <param name="merge_map_topic" value = "map"/>
+  </node> -->
   <node pkg="tf" type="static_transform_publisher" name="world_to_$(arg j1)_tf_broadcaster"  args="0 0 0 0 0 0 /map /$(arg j1)/proj_map 100"/>
   <node pkg="tf" type="static_transform_publisher" name="world_to_$(arg j2)_tf_broadcaster" args="0 0 0 0 0 0 /map /$(arg j2)/proj_map 100"/>
   <!-- <node pkg="tf" type="static_transform_publisher" name="world_to_map_tf_broadcaster" args="0 0 0 0 0 0 /world /map 100"/> -->

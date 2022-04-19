@@ -2,7 +2,7 @@
   <arg name="use_sim_time" default="true" />
   <arg name="gui" default="true" />
   <arg name="headless" default="false" />
-  <arg name="world_name" default="$(find jackal_gazebo_rtab)/worlds/jackal_30x30.world" />
+  <arg name="world_name" default="$(find jackal_gazebo_rtab)/worlds/jackal_20.world" />
 
   <!-- Short-term hack to support the original front_laser:=true argument for spawning
        the simulator. This will be removed in favour of using the config:=x arg instead. -->
@@ -23,15 +23,14 @@
   <arg name="config3"    default="base"/>
   <arg name="config3_id" default="3"/>
 
-  <arg name="j1_x_pos" default="14"/>
-  <arg name="j1_y_pos" default="14"/>
+  <arg name="j1_x_pos" default="9.5"/>
+  <arg name="j1_y_pos" default="-9.5"/>
   <arg name="j1_z_pos" default="0"/>
-  <arg name="j1_yaw"   default="3.14"/>
-  <arg name="j2_x_pos" default="-14"/>
-  <arg name="j2_y_pos" default="-14"/>
+  <arg name="j1_yaw"   default="1.57"/>
+  <arg name="j2_x_pos" default="8.5"/>
+  <arg name="j2_y_pos" default="-9.5"/>
   <arg name="j2_z_pos" default="0"/>
-  <arg name="j2_yaw"   default="0"/>
-
+  <arg name="j2_yaw"   default="1.57"/>
   <!-- Optionally enable teleop for the simulation -->
   <!-- <arg name="joystick" default="true" /> -->
 
@@ -71,11 +70,10 @@
 <!-- Debugging tools -->
 <!--******************************-->
 
-<node name="rviz" pkg="rviz" type="rviz" args="-d $(find jackal_viz_rtab)/rviz/two_jackal_rtab.rviz"/>
-<node name="rviz1" pkg="rviz" type="rviz" args="-d $(find jackal_viz_rtab)/rviz/jackal1_map.rviz"/>
-<node name="rviz2" pkg="rviz" type="rviz" args="-d $(find jackal_viz_rtab)/rviz/jackal2_map.rviz"/>
+<node name="rviz" pkg="rviz" type="rviz" args="-d $(find jackal_viz_rtab)/rviz/six_jackal.rviz"/>
+<node name="rviz1" pkg="rviz" type="rviz" args="-d $(find jackal_viz_rtab)/rviz/six_jackal.rviz"/>
 <!-- <node name="rqt_topic" pkg="rqt_topic" type="rqt_topic" output="screen" /> -->
-<node name="rqt_graph" pkg="rqt_graph" type="rqt_graph" output="screen" />
-<node name="rqt_tf_tree" pkg="rqt_tf_tree" type="rqt_tf_tree" output="screen" />
+<!-- <node name="rqt_graph" pkg="rqt_graph" type="rqt_graph" output="screen" />
+<node name="rqt_tf_tree" pkg="rqt_tf_tree" type="rqt_tf_tree" output="screen" /> -->
 
 </launch>

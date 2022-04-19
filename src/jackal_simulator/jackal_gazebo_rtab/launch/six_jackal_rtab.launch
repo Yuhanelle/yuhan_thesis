@@ -2,7 +2,7 @@
   <arg name="use_sim_time" default="true" />
   <arg name="gui" default="true" />
   <arg name="headless" default="false" />
-  <arg name="world_name" default="$(find jackal_gazebo_rtab)/worlds/jackal_30_6.world" />
+  <arg name="world_name" default="$(find jackal_gazebo_rtab)/worlds/jackal_60.world" />
 
   <!-- Short-term hack to support the original front_laser:=true argument for spawning
        the simulator. This will be removed in favour of using the config:=x arg instead. -->
@@ -32,31 +32,44 @@
   <arg name="config5_id" default="5"/>
   <arg name="config6"    default="base"/>
   <arg name="config6_id" default="6"/>
+  <!-- initial positions -->
+  <!-- MID -->
+  <!-- 60x60 MID (-4.5, -10.5)(-3.5, -10.5)(-5.5, -10.5)(-4.5, -11.5)(-3.5, -11.5)(-5.5, -11.5) -->
+  <!-- 40x40 MID (2.5, -3.5)(3.5, -3.5)(1.5, -3.5)(2.5, -4.5)(3.5, -4.5)(1.5, -4.5) -->
+  <!-- 30x30 MID (6.5, -2.5)(7.5, -2.5)(5.5, -2.5)(6.5, -3.5)(7.5, -3.5)(5.5, -3.5) -->
+  <!-- 20x20 MID (-5.5, -0.5)(-4.5, -0.5)(-6.5, -0.5)(-5.5, -1.5)(-4.5, -1.5)(-6.5, -1.5) -->
+  <!-- TL -->
+  <!-- 60x60 TL(-29.5, 29.5)(-28.5, 29.5)(-29.5, 28.5)(-28.5, 28.5)(-27.5, 29.5)(-29.5, 27.5) -->
+  <!-- 40x40 TL(-19.5, 19.5)(-18.5, 19.5)(-19.5, 18.5)(-18.5, 18.5)(-17.5, 19.5)(-19.5, 17.5) -->
+  <!-- 30x30 TL(-14.5, 14.5)(-13.5, 14.5)(-14.5, 13.5)(-13.5, 13.5)(-12.5, 14.5)(-14.5, 12.5) -->
+  <!-- 20x20 TL(-9.5, 9.5)(-8.5, 9.5)(-9.5, 8.5)(-8.5, 8.5)(-7.5, 9.5)(-9.5, 7.5) -->
+  <!-- BR -->
+  <!-- 60x60 BR(29.5, -29.5)(29.5, -28.5)(28.5, -29.5)(28.5, -28.5)(29.5, -27.5)(27.5, -29.5) -->
 
-  <arg name="j1_x_pos" default="-14.5"/>
-  <arg name="j1_y_pos" default="14.5"/>
+  <arg name="j1_x_pos" default="29.5"/>
+  <arg name="j1_y_pos" default="-29.5"/>
   <arg name="j1_z_pos" default="0"/>
-  <arg name="j1_yaw"   default="4.71"/>
-  <arg name="j2_x_pos" default="-13.5"/>
-  <arg name="j2_y_pos" default="14.5"/>
+  <arg name="j1_yaw"   default="1.57"/>
+  <arg name="j2_x_pos" default="29.5"/>
+  <arg name="j2_y_pos" default="-28.5"/>
   <arg name="j2_z_pos" default="0"/>
-  <arg name="j2_yaw"   default="4.71"/>
-  <arg name="j3_x_pos" default="-14.5"/>
-  <arg name="j3_y_pos" default="13.5"/>
+  <arg name="j2_yaw"   default="1.57"/>
+  <arg name="j3_x_pos" default="28.5"/>
+  <arg name="j3_y_pos" default="-29.5"/>
   <arg name="j3_z_pos" default="0"/>
-  <arg name="j3_yaw"   default="4.71"/>
-  <arg name="j4_x_pos" default="-13.5"/>
-  <arg name="j4_y_pos" default="13.5"/>
+  <arg name="j3_yaw"   default="1.57"/>
+  <arg name="j4_x_pos" default="28.5"/>
+  <arg name="j4_y_pos" default="-28.5"/>
   <arg name="j4_z_pos" default="0"/>
-  <arg name="j4_yaw"   default="4.71"/>
-  <arg name="j5_x_pos" default="-12.5"/>
-  <arg name="j5_y_pos" default="14.5"/>
+  <arg name="j4_yaw"   default="1.57"/>
+  <arg name="j5_x_pos" default="29.5"/>
+  <arg name="j5_y_pos" default="-27.5"/>
   <arg name="j5_z_pos" default="0"/>
-  <arg name="j5_yaw"   default="4.71"/>
-  <arg name="j6_x_pos" default="-14.5"/>
-  <arg name="j6_y_pos" default="12.5"/>
+  <arg name="j5_yaw"   default="1.57"/>
+  <arg name="j6_x_pos" default="27.5"/>
+  <arg name="j6_y_pos" default="-29.5"/>
   <arg name="j6_z_pos" default="0"/>
-  <arg name="j6_yaw"   default="4.71"/>
+  <arg name="j6_yaw"   default="1.57"/>
 
   <!-- Optionally enable teleop for the simulation -->
   <!-- <arg name="joystick" default="true" /> -->
@@ -139,6 +152,7 @@
 <!--******************************-->
 
 <node name="rviz" pkg="rviz" type="rviz" args="-d $(find jackal_viz_rtab)/rviz/six_jackal.rviz"/>
+<node name="rviz2" pkg="rviz" type="rviz" args="-d $(find jackal_viz_rtab)/rviz/six_jackal.rviz"/>
 <!--<node name="rviz1" pkg="rviz" type="rviz" args="-d $(find jackal_viz_rtab)/rviz/jackal1_map.rviz"/>
 <node name="rviz2" pkg="rviz" type="rviz" args="-d $(find jackal_viz_rtab)/rviz/jackal2_map.rviz"/>-->
 <!-- <node name="rqt_topic" pkg="rqt_topic" type="rqt_topic" output="screen" /> -->

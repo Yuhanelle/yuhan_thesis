@@ -1,6 +1,6 @@
 <launch>
     <arg name="ns" default="jackal0"/>
-    <node name="jackal_waypoint_publisher" pkg="rnn_sim" type="jackal_waypoint_publisher.py" args="$(find rnn_sim)/test_run/wpt_TL_30_2.txt" output="screen" />
+    <node name="jackal_waypoint_publisher" pkg="rnn_sim" type="jackal_waypoint_publisher.py" args="$(find rnn_sim)/test_run/wpt_BR_20_2.txt" output="screen" />
     <!-- <node name="jacakl1_map_update" pkg="rnn_sim" type="jackal_map_saver.py" output="screen" >
         <param name="frame_id"  value="$(arg ns)/map"/>
         <param name="map_ns" value="$(arg ns)" />
