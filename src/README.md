@@ -1,3 +1,8 @@
+Installation
+sudo apt-get install ros-melodic-jackal-desktop ros-melodic-jackal-navigation
+git clone this repo
+
+
 How to launch simulation
 1. Change the world name in (# of jackal, e.g. six)_jackal_rtab.launch to the world you want to use
 2. Change the inital position of jackals, TL, BR and MID initial positions are listed in six_jackal_rtab.launch in jackal_gazebo_rtab
