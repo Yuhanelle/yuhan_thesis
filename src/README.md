@@ -9,4 +9,5 @@ How to launch simulation
 3. then     roslaunch jackal_gazebo_rtab (# of jackal, e.g. six)_jackal_rtab.launch 
 4. Go to baselink_calibration_(envsize).yaml in jackal_gazebo_rtab folder, wait for gazebo and rviz to respond and find the correct starting position, copy it to terminal.
 5. roslaunch jackal_gazebo_rtab (# of jackal)_jackal_map_merge_global.launch
-6. roslaunch jackal_gazbeo_rtab jackal_waypoint_(#number of jackals e.g. 6).launch
+6. change jackal_waypoint_(#number of jackals e.g. 6).launch to desired waypoint files in rnn_sim/test_run
+7. roslaunch jackal_gazbeo_rtab jackal_waypoint_(#number of jackals e.g. 6).launch
