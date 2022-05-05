@@ -1,6 +1,6 @@
 Installation
-sudo apt-get install ros-melodic-jackal-desktop ros-melodic-jackal-navigation
-git clone this repo
+1. sudo apt-get install ros-melodic-jackal-desktop ros-melodic-jackal-navigation
+2. git clone this repo
 
 
 How to launch simulation
